@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     Rigidbody rb;
     public GameObject winScreen;
+    public Text text;
     public float movementSpeed = 1f, turnSpeed = 1f;
+    public int pickupQuota = 3;
     int score = 0;
     // Start is called before the first frame update
     void Start()
@@ -25,11 +29,18 @@ public class PlayerController : MonoBehaviour
         rb.angularVelocity = angularVelocity;
     }
 
+    IEnumerator FlashMessage(GameObject message) {
+        message.SetActive(true);
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("Splash");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         score++;
-        if(score == 9){
-            winScreen.SetActive(true);
+        text.text = "Count: " + score.ToString();
+        if(score == pickupQuota){
+            StartCoroutine(FlashMessage(winScreen));
         }
     }
 }

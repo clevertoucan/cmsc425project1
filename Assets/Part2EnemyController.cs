@@ -5,7 +5,6 @@ using UnityEngine;
 public class Part2EnemyController : MonoBehaviour{
     Rigidbody rb;
     public float rotateSpeed = 2f, maxEnemyPeriod = 5, minEnemyPeriod = 1;
-    public GameObject player;
     float startX, startY, startZ, movementPeriod;
     // Start is called before the first frame update
     void Start()
